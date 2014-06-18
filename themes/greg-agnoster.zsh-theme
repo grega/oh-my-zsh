@@ -166,6 +166,24 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
+## Output VBox status
+prompt_vm() {
+  function vbox_status {
+    echo `~/Vagrant/vbox-status-check.sh`
+  }
+
+  screen_w=$(tput cols)   # Get screen width
+  screen_h=$(tput lines)  # Get screen height
+  str=$(vbox_status)      # String to put in corner
+  string_w=${#str}
+  let "x = $screen_w - $string_w"
+
+  tput sc               # Save current position
+  tput cup $screen_h $x # Move to corner
+  echo -ne $str         # Put string in the corner
+  tput rc               # Go back to saved position
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -175,6 +193,7 @@ build_prompt() {
   prompt_dir
   prompt_git
   prompt_hg
+  prompt_vm
   prompt_end
 }
 
