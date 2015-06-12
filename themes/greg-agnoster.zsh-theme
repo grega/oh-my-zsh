@@ -169,7 +169,7 @@ prompt_status() {
 ## Output VBox status
 prompt_vm() {
   function vbox_status {
-    echo `~/Vagrant/vbox-status-check.sh`
+    echo `~/Dev/vbox-status-check.sh`
   }
 
   screen_w=$(tput cols)   # Get screen width
